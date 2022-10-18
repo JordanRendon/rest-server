@@ -33,7 +33,7 @@ const getUsers = (req = request, res = response) => {
 
   const updateUsers = (req = request, res = response) => {
     const id = req.params.id
-    const body = req.dody
+    const body = req.body
     res.json({
       msg: 'put API - controller',
       id,
