@@ -1,4 +1,5 @@
 const {request, response} = require ('express')
+const User = require('../models/users')
 
 const getUsers = (req = request, res = response) => {
   //url/api/users/?name=Sergio&date=2022-01-25 -> query
@@ -19,25 +20,24 @@ const getUsers = (req = request, res = response) => {
   })
  }
 
- const createUsers = (req = request, res = response) => {
+ const createUsers = async (req = request, res = response) => {
     //url/api/users/ -> Body: Es el objeto en JSON
-    const {data, name,lastname,age} = req.body
+    const body = req.body
+    const user = new User(body)
+    await user.save()
+
     res.status(201).json({
       msg: 'post API - controller',
-      data,
-      name,
-      lastname,
-      age
+      user,
     })
   }
 
   const updateUsers = (req = request, res = response) => {
-    const id = req.params.id
     const body = req.body
+    const user = new User(body)
     res.json({
       msg: 'put API - controller',
-      id,
-      body,
+      user,
     })
   }
 
