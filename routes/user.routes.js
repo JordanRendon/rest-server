@@ -9,7 +9,7 @@ const {
   getUsersById,
 } = require('../controllers/user.controller')
 const { validateFields } = require('../middlewares/validate-fields')
-const { isValidRole, emailExists } = require('../helpers/db-validators')
+const { isValidRole, emailExists, userByIdExists } = require('../helpers/db-validators')
 
 const router = Router()
 
@@ -33,8 +33,16 @@ check('role').custom(isValidRole),
 validateFields,
 ],createUsers)
 
-router.put('/:id', updateUsers)
+router.put('/:id', [
+  check('id', 'El ID no es valido').isMongoId(),
+  check('id').custom(userByIdExists),
+  validateFields,
+],updateUsers)
 
-router.delete('/:id', deleteUsers)
+router.delete('/:id', [
+  check('id', 'El ID no es valido').isMongoId(),
+  check('id').custom(userByIdExists),
+  validateFields,
+],deleteUsers)
 
 module.exports = router
