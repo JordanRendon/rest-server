@@ -34,7 +34,6 @@ const getUsersById = (req = request, res = response) => {
   //ur/api/users/25 -> Segmento: El 25 entra en el id
   const id = req.params.id
   res.json({
-    msg: 'get UserById',
     id,
   })
 }
@@ -51,7 +50,6 @@ const createUsers = async (req = request, res = response) => {
   await user.save()
 
   res.status(201).json({
-    msg: 'post API - controller',
     user,
   })
 }
@@ -67,7 +65,6 @@ const updateUsers = async (req = request, res = response) => {
     const user = await User.findByIdAndUpdate(id, data, { new: true })
 
     res.json({
-      msg: 'put API - controller',
       user,
     })
   } catch (error) {
@@ -90,7 +87,6 @@ const deleteUsers = async (req = request, res = response) => {
     const deleteUser = await User.findByIdAndUpdate(id, {status:false}, {new:true})
 
   res.json({
-    msg: 'delete API - controller',
     deleteUser,
   })
   } catch (error) {
