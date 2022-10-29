@@ -27,7 +27,6 @@ const validateJWT = async (req = request, res = response, next) => {
                 msg: 'Token no valido - usuario con status false'
             })
         }
-
         req.authenticateUserId = id
         req.authenticateUser = user
         next()
